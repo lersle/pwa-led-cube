@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from "react-router-dom";

@@ -14,7 +14,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Typography } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import DrawerListItem from './DrawerListItem';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // icons
 import InfoIcon from '@mui/icons-material/Info';

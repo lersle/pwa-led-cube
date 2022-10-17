@@ -50,7 +50,7 @@ export default function Hardware() {
           <StyledTypography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
             Hardware
           </StyledTypography>
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
             <Grid item xs={5} sx={{m: 1}}>
               <Link href={Pdf} target="_blank" underline="none" download>
                 <Item>

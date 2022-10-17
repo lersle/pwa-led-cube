@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-
+import { ColorPicker } from 'material-ui-color';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
     margin: 20
@@ -29,6 +29,11 @@ function Manipulate(props) {
                     <StyledTypography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
                         Manipulate
                     </StyledTypography>
+                    <Typography> 
+
+                    </Typography>
+                    <Typography variant="body">Select the color in which the cube shall shine</Typography>
+                    <ColorPicker defaultValue='#c00'/>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                             <Item>
@@ -36,8 +41,7 @@ function Manipulate(props) {
                                     primary="CLOCK"
                                     secondary="point the side 4 of the cube to this cell">
                                 </ListItemText>
-                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: 'text.primary'}}>
-                                </Box>
+                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: '#fff'}}></Box>
                             </Item>                            
                         </Grid>
                         <Grid item xs={6}>
@@ -46,6 +50,7 @@ function Manipulate(props) {
                                     primary="DATA"
                                     secondary="point the side 6 of the cube to this cell">
                                 </ListItemText>
+                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: '#000'}}></Box>
                             </Item>                            
                         </Grid>
                     </Grid>
