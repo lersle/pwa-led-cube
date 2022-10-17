@@ -81,62 +81,60 @@ function MainComp(props) {
   };
 
   return (
-    <ThemeProvider theme={dark ? createTheme(dark) : createTheme(light)}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <MuiAppBar position="fixed" open={open}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: 'none' }) }}
-            >
-              <MenuIcon fontSize="medium" />
-            </IconButton>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <MuiAppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon fontSize="medium" />
+          </IconButton>
 
-            <Typography variant="h4" sx={{ flex: 1 }}>LED-Cube Interface</Typography>
-            <IconButton onClick={() => { setDark(!dark) }}><Brightness4Icon /></IconButton>
+          <Typography variant="h4" sx={{ flex: 1 }}>LED-Cube Interface</Typography>
+          <IconButton onClick={() => { setDark(!dark) }}><Brightness4Icon /></IconButton>
 
-            <IconButton href={"https://www.bfh.ch/de/"} target="_blank" rel="noopener">
-              <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
-            </IconButton>
-          </Toolbar>
-        </MuiAppBar>
-        <Drawer
-          sx={{
+          <IconButton href={"https://www.bfh.ch/de/"} target="_blank" rel="noopener">
+            <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
+          </IconButton>
+        </Toolbar>
+      </MuiAppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            <DrawerListItem text="Manual" href="/manual" icon={<InfoIcon />} />
-            <DrawerListItem text="Manipulate" href="/manipulate" icon={<TerminalIcon />} />
-            <DrawerListItem text="Development" href="/development" icon={<CasinoIcon />} />
-            <DrawerListItem text="Hardware" href="/hardware" icon={<PermDeviceInformationIcon />} />
-            <DrawerListItem text="Software" href="/software" icon={<CodeIcon />} />
-          </List>
-        </Drawer>
-        <Main open={open}>
-          <DrawerHeader />
-          <Outlet />
-        </Main>
-      </Box>
-    </ThemeProvider>
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          <DrawerListItem text="Manual" href="/manual" icon={<InfoIcon />} />
+          <DrawerListItem text="Manipulate" href="/manipulate" icon={<TerminalIcon />} />
+          <DrawerListItem text="Development" href="/development" icon={<CasinoIcon />} />
+          <DrawerListItem text="Hardware" href="/hardware" icon={<PermDeviceInformationIcon />} />
+          <DrawerListItem text="Software" href="/software" icon={<CodeIcon />} />
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Outlet />
+      </Main>
+    </Box>
   );
 }
 

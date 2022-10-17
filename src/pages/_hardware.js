@@ -25,19 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-// Define theme settings
-const light = {
-  palette: {
-    mode: "light",
-  },
-};
-
-const dark = {
-  palette: {
-    mode: "dark",
-  },
-};
-
 const StyledTypography = styled(Typography)(({ theme }) => ({
   margin: 20
 }));
@@ -57,14 +44,14 @@ export default function Hardware() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+    <Box sx={{ flexGrow: 1, maxWidth: 1200 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <StyledTypography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
             Hardware
           </StyledTypography>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={6}>
+            <Grid item xs={5} sx={{m: 1}}>
               <Link href={Pdf} target="_blank" underline="none" download>
                 <Item>
                   <img  src={SchematicPreview} alt="Schematic-Preview" />
@@ -75,7 +62,7 @@ export default function Hardware() {
                 </Item>
               </Link>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={5} sx={{m: 1}}>
               <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={BOMPreview} alt="BOM-Preview" />
@@ -86,7 +73,7 @@ export default function Hardware() {
                 </Item>
               </Link>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={5} sx={{m: 1}}>
               <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={PCBPreview} alt="PCB-Preview" />
@@ -97,7 +84,7 @@ export default function Hardware() {
                 </Item>
               </Link>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={5} sx={{m: 1}}>
               <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={FabricationPreview} alt="PCB-Preview" />
@@ -126,7 +113,7 @@ export default function Hardware() {
                   39 GPIOs, rich set of peripherals
                   On­board PCB antenna"
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -139,7 +126,7 @@ export default function Hardware() {
                   user interface control, gaming motion input, electronic compass tilt compensation for
                   cell phones, game controllers, remote controls and portable media products"
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -154,7 +141,7 @@ export default function Hardware() {
                   a voltage programmable constant current supply that converts the non-linear brightness 
                   curve of the color channels to one that is linear to the user."
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -165,7 +152,7 @@ export default function Hardware() {
                   control circuits to maximize the lifespan of the LED-Cube. It supports input voltages between 1.7V and 5.5V.
                   The load switch pass element is an internal P-channel MOSFET which enables the MIC94091YC6-TR to support up to 1.2A continuous current."
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -180,7 +167,7 @@ export default function Hardware() {
                   avoided by implementing a sensor from these low-cost devices. The Voltage Output pin (VOUT) can be directly
                   connected to the ADC input of a microcontroller."
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -193,7 +180,7 @@ export default function Hardware() {
                   are turned of over long times. Through an integrated ship mode, in which the LED-Cubes current-consumption
                   can be reduced to 10nA, you can also play monopoly on your game nights without having to load the LED-Cube."
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -203,7 +190,7 @@ export default function Hardware() {
                   secondary="In order to adjust the brightness of the LED cube to the environmental illumination 3 ambient light sensors are used.
                   Through the external circuit, the adjustment time and the maximum ambient lighting can be set."
                 />
-              </ListItem>,
+              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <img src={BFHLogoColored} height={35} width={35} alt="BFH-Logo" />
@@ -214,7 +201,7 @@ export default function Hardware() {
                   However, they require so much current that an almost empty accumulator or an imminent overheating would only be accelerated. To still get
                   information about the accumulator status or the internal temperature, various low current LEDs are built-in."
                 />
-              </ListItem>,
+              </ListItem>
             </List>
           </Demo>
         </Grid>
