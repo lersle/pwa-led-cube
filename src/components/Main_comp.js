@@ -94,7 +94,7 @@ function MainComp(props) {
             <MenuIcon fontSize="medium" />
           </IconButton>
 
-          <Typography variant="h4" sx={{ flex: 1 }}>LED-Cube Interface</Typography>
+          <Typography variant="h3" sx={{ flex: 1 }}>LED-Cube Interface</Typography>
           <IconButton onClick={() => { setDark(!dark) }}><Brightness4Icon /></IconButton>
 
           <IconButton href={"https://www.bfh.ch/de/"} target="_blank" rel="noopener">

@@ -10,7 +10,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
-import Pdf from '../files/led-cube_schematic.pdf';
 import SchematicPreview from '../images/schematic_preview.PNG'
 import BOMPreview from '../images/bom_preview.PNG'
 import PCBPreview from '../images/pcb_preview.PNG'
@@ -26,7 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  margin: 20
+  margin: 5
 }));
 
 const Demo = styled('div')(({ theme }) => ({
@@ -44,15 +43,15 @@ export default function Hardware() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 1200 }}>
+    <Box sx={{ flexGrow: 1, maxWidth: 1200, m: 2 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <StyledTypography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
+          <StyledTypography sx={{mb: 1, mt: 0}} variant="h4" component="div">
             Hardware
           </StyledTypography>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
             <Grid item xs={5} sx={{m: 1}}>
-              <Link href={Pdf} target="_blank" underline="none" download>
+              <Link href={"https://github.com/lersle/led-cube/tree/main/schematic"} target="_blank" underline="none">
                 <Item>
                   <img  src={SchematicPreview} alt="Schematic-Preview" />
                   <ListItemText align="left"
@@ -63,7 +62,7 @@ export default function Hardware() {
               </Link>
             </Grid>
             <Grid item xs={5} sx={{m: 1}}>
-              <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
+              <Link href={"https://github.com/lersle/led-cube/tree/main/bill_of_material"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={BOMPreview} alt="BOM-Preview" />
                   <ListItemText align="left"
@@ -74,7 +73,7 @@ export default function Hardware() {
               </Link>
             </Grid>
             <Grid item xs={5} sx={{m: 1}}>
-              <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
+              <Link href={"https://github.com/lersle/led-cube/tree/main/gerber_files"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={PCBPreview} alt="PCB-Preview" />
                   <ListItemText align="left"
@@ -85,7 +84,7 @@ export default function Hardware() {
               </Link>
             </Grid>
             <Grid item xs={5} sx={{m: 1}}>
-              <Link href={"https://github.com/lersle/led-cube"} underline="none" target="_blank" rel="noopener">
+              <Link href={"https://github.com/lersle/led-cube/tree/main/fabrication_manual"} underline="none" target="_blank" rel="noopener">
                 <Item>
                   <img  src={FabricationPreview} alt="PCB-Preview" />
                   <ListItemText align="left"
@@ -96,7 +95,7 @@ export default function Hardware() {
               </Link>
             </Grid>
           </Grid>
-          <StyledTypography sx={{ mt: 4, mb: 2 }} variant="body" component="div">
+          <StyledTypography sx={{ mt: 4, mb: 0.5 }} variant="h5" component="div">
             Used Components:
           </StyledTypography>
           <Demo>
