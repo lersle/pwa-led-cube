@@ -21,6 +21,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { SketchPicker, BlockPicker } from "react-color";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
     margin: 5
@@ -41,28 +42,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 function Manipulate(props) {
-    const [simpleFrequency, setimpleFrequency] = React.useState('');
-    const [simpleOccurrence, setSimpleOccurrence] = React.useState('');
-    const [simpleNumber, setSimpleNumber] = React.useState('');
-
-    const handleSimpleFrequency = (event) => {
-        setimpleFrequency(event.target.value);
-        console.log(`Typed => ${event.target.value}`);
-        setValue(event.target.value);
-    };
-
-    const handleSimpleOccurrence = (event) => {
-        setSimpleOccurrence(event.target.value);
-        console.log(`Typed => ${event.target.value}`);
-        setValue(event.target.value);
-    };
-
-    const handleSimpleNumber = (event) => {
-        setSimpleNumber(event.target.value);
-        console.log(`Typed => ${event.target.value}`);
-        setValue(event.target.value);
-    };
-
     const defaultProps = {
         options: diceMode,
         getOptionLabel: (option) => option.title,
@@ -105,14 +84,79 @@ function Manipulate(props) {
         setOpenCheatModeAdvanced(false);
     };
 
-    const [value, setValue] = useState("");
-    const handleChangeAdvancedCheat = e => {
-        console.log(`Typed => ${e.target.value}`);
-        setValue(e.target.value)
+    const [color, setColor] = useState("");
+    const [valueDiceMode, setValueDiceMode] = useState("value");
+    const [valueCheatAdvanced, setValueCheatAdvanced] = useState("");
+    const [valueCheatSimpleNumber, setValueCheatSimpleNumber] = useState("");
+    const [valueCheatSimpleTurn, setValueCheatSimpleTurn] = useState("");
+    const [valueCheatSimpleRound, setValueCheatSimpleRound] = useState("");
+    // const [value, setValue] = useState("");
+
+    const handleChangeColor = e => {
+        setColor(e.target.value);
+        console.log(`Color => ${e.target.value}`)
     };
+    const handleChangeAdvancedCheat = e => {
+        setValueCheatAdvanced(e.target.value);
+        console.log(`Advanced => ${e.target.value}`)
+    };
+
+    const handleChangeSimpleNumberCheat = e => {
+        setValueCheatSimpleNumber(e.target.value);
+        console.log(`number => ${e.target.value}`)
+    };
+
+    const handleChangeSimpleTurnCheat = e => {
+        setValueCheatSimpleTurn(e.target.value);
+        console.log(`turns => ${e.target.value}`)
+    };
+
+    const handleChangeSimpleRoundCheat = e => {
+        setValueCheatSimpleRound(e.target.value);
+        console.log(`rounds => ${e.target.value}`)
+    };
+
+    const [clockIsActive, setClockIsActive] = useState(false);
+    const [dataIsActive, setDataIsActive] = useState(false);
+
+    const handleColorClock = () => {
+        setClockIsActive(current => !current);
+    };
+
+    const handleColorData = () => {
+        setDataIsActive(current => !current);
+    };
+
+    const handleChangeDiceMode = e => {
+        console.log(`changed Dicemode`)
+    }
+
+    const sendData = () => {
+        console.log(`color => ${color} dicemode => ${diceMode} number => ${valueCheatSimpleNumber} turns => ${valueCheatSimpleTurn} rounds => ${valueCheatSimpleRound} advanced => ${valueCheatAdvanced}`)
+    }
 
     return (
         <Box sx={{ flexGrow: 1, maxWidth: 1200, m: 2 }}>
+            <div>
+                <Button
+                    style={{
+                        backgroundColor: clockIsActive ? 'black' : 'white',
+                        color: clockIsActive ? 'white' : 'black',
+                    }}
+                    onClick={handleColorClock}
+                >
+                    Hello world
+                </Button>
+                <Button
+                    style={{
+                        backgroundColor: dataIsActive ? 'black' : 'white',
+                        color: dataIsActive ? 'white' : 'black',
+                    }}
+                    onClick={handleColorData}
+                >
+                    Hello world
+                </Button>
+            </div>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <StyledTypography sx={{ mt: 2, mb: 2 }} variant="h4" component="div">
@@ -132,19 +176,23 @@ function Manipulate(props) {
                     <StyledTypography variant="body">
                         To select the color, in which the cube shall shine, just click the colored square.
                     </StyledTypography>
-                    <ColorPicker defaultValue='#c00' />
+                    <div>
+                        <input type="color" defaultValue='#c00' value={color} onChange={handleChangeColor} />
+                    </div>
                     <StyledTypography sx={{ mt: 3, mb: 0.5 }} variant="h5" component="div">
                         Dice mode
                     </StyledTypography>
                     <StyledTypography variant="body">
                         Here you can set in which mode the cube should operate. This influences the highest <br />possible value of the eyes. So d5 (five-sided), d4 (four-sided), d3 (three-sided), d2 (two-sided) can be simulated or the cube is operated in the normal 6-sided mode.
                     </StyledTypography>
-                    <Autocomplete
+                    <Autocomplete 
+                        onChange={handleChangeDiceMode} 
+                        value={valueDiceMode}
                         {...defaultProps}
                         id="clear-on-escape"
                         clearOnEscape
                         renderInput={(params) => (
-                            <TextField {...params} label="select dice mode" variant="standard" />
+                            <TextField {...params} label="select dice mode" variant="standard"/>
                         )}
                     />
                     <StyledTypography sx={{ mt: 3, mb: 0.5 }} variant="h5" component="div">
@@ -213,9 +261,9 @@ function Manipulate(props) {
                                         <Select
                                             labelId="simple-number-select-label"
                                             id="simple-number-select"
-                                            value={simpleNumber}
+                                            value={valueCheatSimpleNumber}
                                             label="Simple Number"
-                                            onChange={handleSimpleNumber}
+                                            onChange={handleChangeSimpleNumberCheat}
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
@@ -233,9 +281,9 @@ function Manipulate(props) {
                                         <Select
                                             labelId="simple-frequency-select-label"
                                             id="simple-frequency-select"
-                                            value={simpleFrequency}
+                                            value={valueCheatSimpleTurn}
                                             label="Simple Frequency"
-                                            onChange={handleSimpleFrequency}
+                                            onChange={handleChangeSimpleTurnCheat}
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
@@ -262,9 +310,9 @@ function Manipulate(props) {
                                         <Select
                                             labelId="simple-frequency-select-label"
                                             id="simple-frequency-select"
-                                            value={simpleOccurrence}
+                                            value={valueCheatSimpleRound}
                                             label="Simple Occurrence"
-                                            onChange={handleSimpleOccurrence}
+                                            onChange={handleChangeSimpleRoundCheat}
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
@@ -333,7 +381,7 @@ function Manipulate(props) {
                                     noValidate
                                     autoComplete="off"
                                 >
-                                    <TextField value={value}
+                                    <TextField value={valueCheatAdvanced}
                                         onChange={handleChangeAdvancedCheat} id="advanced-number-array" label="Type your numbers here" variant="outlined" />
                                 </Box>
                             </DialogContentText>
@@ -347,6 +395,12 @@ function Manipulate(props) {
                     <StyledTypography sx={{ mt: 3, mb: 0.5 }} variant="h5" component="div">
                         Optical interface
                     </StyledTypography>
+                    <StyledTypography variant="body">
+                        As soon as you press the button at the bottom, the transmission of the configured data begins. To ensure complete data transmission, hold your LED-Cube in front of the screen as described in the two fields. For more detailed instructions, please refer to the manual tab. If the transmission was successful, the LED-Cube lights up green twice, if something went wrong, it flashes red.
+                    </StyledTypography>
+                    <div>
+                        <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={sendData}>Start transmission</Button>
+                    </div>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                             <Item>
@@ -354,7 +408,7 @@ function Manipulate(props) {
                                     primary="CLOCK"
                                     secondary="point the side 4 of the cube to this cell">
                                 </ListItemText>
-                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: '#fff' }}></Box>
+                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: clockIsActive ? 'black' : 'white', color: clockIsActive ? 'white' : 'black', }}></Box>
                             </Item>
                         </Grid>
                         <Grid item xs={6}>
@@ -363,7 +417,7 @@ function Manipulate(props) {
                                     primary="DATA"
                                     secondary="point the side 6 of the cube to this cell">
                                 </ListItemText>
-                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: '#000' }}></Box>
+                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: dataIsActive ? 'black' : 'white', color: dataIsActive ? 'white' : 'black', }}></Box>
                             </Item>
                         </Grid>
                     </Grid>
@@ -376,9 +430,9 @@ function Manipulate(props) {
 export default Manipulate;
 
 const diceMode = [
-    { title: 'd2 - two sided dice' },
-    { title: 'd3 - three sided dice' },
-    { title: 'd4 - four sided dice' },
-    { title: 'd5 - five sided dice' },
-    { title: 'd6 - six sided dice' }
+    { title: 'd2 - two sided dice', value: '2' },
+    { title: 'd3 - three sided dice', value: '3' },
+    { title: 'd4 - four sided dice', value: '4' },
+    { title: 'd5 - five sided dice', value: '5' },
+    { title: 'd6 - six sided dice', value: '6' }
 ];

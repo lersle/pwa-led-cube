@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "material-ui-color": "^1.2.0",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "^2.1.3",
