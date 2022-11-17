@@ -51,6 +51,7 @@ function Manipulate(props) {
     const [openCheatMode, setOpenCheatMode] = React.useState(false);
     const [openCheatModeSimple, setOpenCheatModeSimple] = React.useState(false);
     const [openCheatModeAdvanced, setOpenCheatModeAdvanced] = React.useState(false);
+    const [openTransmissionWarning, setOpenTransmissionWarning] = React.useState(false);
 
     const handleClickOpenCheat = () => {
         setOpenCheat(true);
@@ -84,12 +85,21 @@ function Manipulate(props) {
         setOpenCheatModeAdvanced(false);
     };
 
+    const handleSendDataWarning = () => {
+        setOpenTransmissionWarning(true);
+    };
+
+    const handleCloseTransmissionWarning = () => {
+        setOpenTransmissionWarning(false);
+    };
+
     const [color, setColor] = useState("");
     const [valueDiceMode, setValueDiceMode] = useState("value");
     const [valueCheatAdvanced, setValueCheatAdvanced] = useState("");
     const [valueCheatSimpleNumber, setValueCheatSimpleNumber] = useState("");
     const [valueCheatSimpleTurn, setValueCheatSimpleTurn] = useState("");
     const [valueCheatSimpleRound, setValueCheatSimpleRound] = useState("");
+    const [counter, setCounter] = useState(0);
     // const [value, setValue] = useState("");
 
     const handleChangeColor = e => {
@@ -119,12 +129,20 @@ function Manipulate(props) {
     const [clockIsActive, setClockIsActive] = useState(false);
     const [dataIsActive, setDataIsActive] = useState(false);
 
-    const handleColorClock = () => {
-        setClockIsActive(current => !current);
+    const handleColorClockOn = () => {
+        setClockIsActive(current => 1);
     };
 
-    const handleColorData = () => {
-        setDataIsActive(current => !current);
+    const handleColorDataOn = () => {
+        setDataIsActive(current => 1);
+    };
+
+    const handleColorClockOff = () => {
+        setClockIsActive(current => 0);
+    };
+
+    const handleColorDataOff = () => {
+        setDataIsActive(current => 0);
     };
 
     const handleChangeDiceMode = e => {
@@ -133,11 +151,16 @@ function Manipulate(props) {
 
     const sendData = () => {
         console.log(`color => ${color} dicemode => ${diceMode} number => ${valueCheatSimpleNumber} turns => ${valueCheatSimpleTurn} rounds => ${valueCheatSimpleRound} advanced => ${valueCheatAdvanced}`)
+
+        const interval = setInterval(() => {
+            setClockIsActive(current => !current);
+        }, 200);
     }
 
-    const interval = setInterval(() => {
-        handleColorClock();
-    }, 1000);
+    const stopTransmission = () => {
+        clearInterval(setClockIsActive(0))
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1, maxWidth: 1200, m: 2 }}>
@@ -147,7 +170,7 @@ function Manipulate(props) {
                         backgroundColor: clockIsActive ? 'black' : 'white',
                         color: clockIsActive ? 'white' : 'black',
                     }}
-                    onClick={handleColorClock}
+                    onClick={function (event) { stopTransmission(); handleColorDataOff(); }}
                 >
                     Hello world
                 </Button>
@@ -156,7 +179,7 @@ function Manipulate(props) {
                         backgroundColor: dataIsActive ? 'black' : 'white',
                         color: dataIsActive ? 'white' : 'black',
                     }}
-                    onClick={handleColorData}
+                    onClick={function (event) { handleColorClockOff(); handleColorDataOn(); }}
                 >
                     Hello world
                 </Button>
@@ -403,8 +426,28 @@ function Manipulate(props) {
                         As soon as you press the button at the bottom, the transmission of the configured data begins. To ensure complete data transmission, hold your LED-Cube in front of the screen as described in the two fields. For more detailed instructions, please refer to the manual tab. If the transmission was successful, the LED-Cube lights up green twice, if something went wrong, it flashes red.
                     </StyledTypography>
                     <div>
-                        <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={sendData}>Start transmission</Button>
+                        <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={handleSendDataWarning}>Start transmission</Button>
                     </div>
+                    <Dialog
+                        maxWidth={"md"}
+                        open={openTransmissionWarning}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={handleCloseTransmissionWarning}
+                        aria-describedby="alert-dialog-slide-description"
+                    >
+                        <span style={{ color: 'red' }}>
+                            <DialogTitle>{"WARNING:"}</DialogTitle>
+                        </span>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                            The following sequence may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={function (event) { handleCloseTransmissionWarning(); sendData() }} > OK</Button>
+                        </DialogActions>
+                    </Dialog>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                             <Item>
@@ -427,7 +470,7 @@ function Manipulate(props) {
                     </Grid>
                 </Grid>
             </Grid>
-        </Box>
+        </Box >
     );
 }
 
