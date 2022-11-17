@@ -1,6 +1,6 @@
 import React from "react";
 import Box from '@mui/material/Box';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -135,6 +135,10 @@ function Manipulate(props) {
         console.log(`color => ${color} dicemode => ${diceMode} number => ${valueCheatSimpleNumber} turns => ${valueCheatSimpleTurn} rounds => ${valueCheatSimpleRound} advanced => ${valueCheatAdvanced}`)
     }
 
+    const interval = setInterval(() => {
+        handleColorClock();
+    }, 1000);
+
     return (
         <Box sx={{ flexGrow: 1, maxWidth: 1200, m: 2 }}>
             <div>
@@ -185,14 +189,14 @@ function Manipulate(props) {
                     <StyledTypography variant="body">
                         Here you can set in which mode the cube should operate. This influences the highest <br />possible value of the eyes. So d5 (five-sided), d4 (four-sided), d3 (three-sided), d2 (two-sided) can be simulated or the cube is operated in the normal 6-sided mode.
                     </StyledTypography>
-                    <Autocomplete 
-                        onChange={handleChangeDiceMode} 
+                    <Autocomplete
+                        onChange={handleChangeDiceMode}
                         value={valueDiceMode}
                         {...defaultProps}
                         id="clear-on-escape"
                         clearOnEscape
                         renderInput={(params) => (
-                            <TextField {...params} label="select dice mode" variant="standard"/>
+                            <TextField {...params} label="select dice mode" variant="standard" />
                         )}
                     />
                     <StyledTypography sx={{ mt: 3, mb: 0.5 }} variant="h5" component="div">
