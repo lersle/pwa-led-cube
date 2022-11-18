@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-
+var transmissionIsActive = 0;
 
 function Manipulate(props) {
     const defaultProps = {
@@ -145,16 +145,27 @@ function Manipulate(props) {
         setDataIsActive(current => 0);
     };
 
+    const handleEnableClock = () => {
+        transmissionIsActive = 1;
+    };
+
+    const handleDisableClock = () => {
+        transmissionIsActive = 0;
+    };
+
     const handleChangeDiceMode = e => {
         console.log(`changed Dicemode`)
     }
 
     const sendData = () => {
+        handleEnableClock();
         console.log(`color => ${color} dicemode => ${diceMode} number => ${valueCheatSimpleNumber} turns => ${valueCheatSimpleTurn} rounds => ${valueCheatSimpleRound} advanced => ${valueCheatAdvanced}`)
 
-        const interval = setInterval(() => {
-            setClockIsActive(current => !current);
-        }, 200);
+        // if (transmissionIsActive) {
+        //     const interval = setInterval(() => {
+        //         setClockIsActive(current => !current);
+        //     }, 200);
+        // }
     }
 
     const stopTransmission = () => {
@@ -170,7 +181,7 @@ function Manipulate(props) {
                         backgroundColor: clockIsActive ? 'black' : 'white',
                         color: clockIsActive ? 'white' : 'black',
                     }}
-                    onClick={function (event) { stopTransmission(); handleColorDataOff(); }}
+                    onClick={function (event) { stopTransmission(); handleColorDataOff(); handleDisableClock() }}
                 >
                     Hello world
                 </Button>
@@ -441,16 +452,16 @@ function Manipulate(props) {
                         </span>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-slide-description">
-                            The following sequence may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.
+                                The following sequence may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={function (event) { handleCloseTransmissionWarning(); sendData() }} > OK</Button>
+                            <Button style={{ textTransform: 'none' }} color="warning" variant="outlined" onClick={function (event) { handleCloseTransmissionWarning(); sendData(); }} > OK</Button>
                         </DialogActions>
                     </Dialog>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
-                            <Item>
+                            <Item id="clock-block">
                                 <ListItemText align="left"
                                     primary="CLOCK"
                                     secondary="point the side 4 of the cube to this cell">
@@ -459,7 +470,7 @@ function Manipulate(props) {
                             </Item>
                         </Grid>
                         <Grid item xs={6}>
-                            <Item>
+                            <Item id="data-block">
                                 <ListItemText align="left"
                                     primary="DATA"
                                     secondary="point the side 6 of the cube to this cell">
