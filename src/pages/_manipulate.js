@@ -22,6 +22,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { SketchPicker, BlockPicker } from "react-color";
+import { InsertEmoticon } from "@mui/icons-material";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
     margin: 5
@@ -100,6 +101,7 @@ function Manipulate(props) {
     const [valueCheatSimpleTurn, setValueCheatSimpleTurn] = useState("");
     const [valueCheatSimpleRound, setValueCheatSimpleRound] = useState("");
     const [counter, setCounter] = useState(0);
+    const clockBlockElement = document.getElementById("clock-block");
     // const [value, setValue] = useState("");
 
     const handleChangeColor = e => {
@@ -159,17 +161,19 @@ function Manipulate(props) {
 
     const sendData = () => {
         handleEnableClock();
+        clockBlockElement.insertBefore();
         console.log(`color => ${color} dicemode => ${diceMode} number => ${valueCheatSimpleNumber} turns => ${valueCheatSimpleTurn} rounds => ${valueCheatSimpleRound} advanced => ${valueCheatAdvanced}`)
 
-        // if (transmissionIsActive) {
-        //     const interval = setInterval(() => {
-        //         setClockIsActive(current => !current);
-        //     }, 200);
-        // }
+        if (transmissionIsActive) {
+            const interval = setInterval(() => {
+                setClockIsActive(current => !current);
+            }, 200);
+        }
     }
 
     const stopTransmission = () => {
         clearInterval(setClockIsActive(0))
+        clockBlockElement.remove();
     }
 
 
@@ -461,21 +465,21 @@ function Manipulate(props) {
                     </Dialog>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
-                            <Item id="clock-block">
+                            <Item>
                                 <ListItemText align="left"
                                     primary="CLOCK"
                                     secondary="point the side 4 of the cube to this cell">
                                 </ListItemText>
-                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: clockIsActive ? 'black' : 'white', color: clockIsActive ? 'white' : 'black', }}></Box>
+                                <Box id = "clock-block" sx={{ flexGrow: 1, height: 400, bgcolor: clockIsActive ? 'black' : 'white', color: clockIsActive ? 'white' : 'black', }}></Box>
                             </Item>
                         </Grid>
                         <Grid item xs={6}>
-                            <Item id="data-block">
+                            <Item>
                                 <ListItemText align="left"
                                     primary="DATA"
                                     secondary="point the side 6 of the cube to this cell">
                                 </ListItemText>
-                                <Box sx={{ flexGrow: 1, height: 400, bgcolor: dataIsActive ? 'black' : 'white', color: dataIsActive ? 'white' : 'black', }}></Box>
+                                <Box id="data-block" sx={{ flexGrow: 1, height: 400, bgcolor: dataIsActive ? 'black' : 'white', color: dataIsActive ? 'white' : 'black', }}></Box>
                             </Item>
                         </Grid>
                     </Grid>
